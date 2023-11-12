@@ -11,11 +11,12 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class KeyboardObserver extends Thread {
 
-	private Queue<KeyEvent> keyEvents = new ArrayBlockingQueue<KeyEvent>(100);
-	private JFrame frame;
+	private final Queue<KeyEvent> keyEvents = new ArrayBlockingQueue<>(100);
+	//private JFrame frame;
 
 	@Override
 	public void run() {
+		JFrame frame;
 		frame = new JFrame("KeyPress Tester");
 		frame.setTitle("Transparent JFrame Demo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,7 +32,6 @@ public class KeyboardObserver extends Thread {
 		frame.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
-
 			}
 
 			@Override
@@ -43,7 +43,6 @@ public class KeyboardObserver extends Thread {
 		frame.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-
 			}
 
 			@Override
@@ -53,7 +52,6 @@ public class KeyboardObserver extends Thread {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-
 			}
 		});
 	}

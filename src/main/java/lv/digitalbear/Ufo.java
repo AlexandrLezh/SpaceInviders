@@ -2,12 +2,12 @@ package lv.digitalbear;
 
 public class Ufo extends BaseObject {
 
-	private static int[][] matrix = {
-		{0, 0, 0, 0, 0},
+	private static final int[][] matrix = {
 		{0, 0, 1, 0, 0},
 		{0, 0, 1, 0, 0},
-		{1, 0, 1, 0, 1},
 		{1, 1, 1, 1, 1},
+		{0, 1, 1, 1, 0},
+		{0, 0, 0, 0, 0},
 	};
 
 	public Ufo(double x, double y) {
@@ -27,7 +27,7 @@ public class Ufo extends BaseObject {
 		x += dx;
 		y += dy;
 
-		checkBorders(radius, Space.game.getWidth() - radius + 1, radius - 1, Space.game.getHeight() / 2 - 1);
+		checkBorders(radius, Start.game.getWidth() - radius + 1, radius - 1, Start.game.getHeight() / 2 - 1);
 
 		int random10 = (int) (Math.random() * 10);
 		if (random10 == 0) {
@@ -36,6 +36,6 @@ public class Ufo extends BaseObject {
 	}
 
 	public void fire() {
-		Space.game.getBombs().add(new Bomb(x, y + 3));
+		Start.game.getBombs().add(new Bomb(x, y + 3));
 	}
 }

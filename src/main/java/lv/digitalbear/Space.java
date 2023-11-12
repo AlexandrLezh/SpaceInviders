@@ -3,24 +3,26 @@ package lv.digitalbear;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Space {
 
-	public static Space game;
-	private int width;
-	private int height;
+	//public static Space game;
+	private final int width;
+	private final int height;
 
 	private SpaceShip ship;
-	private List<Ufo> ufos = new ArrayList<Ufo>();
-	private List<Rocket> rockets = new ArrayList<Rocket>();
-	private List<Bomb> bombs = new ArrayList<Bomb>();
+	private final List<Ufo> ufos = new ArrayList<>();
+	private final List<Rocket> rockets = new ArrayList<>();
+	private final List<Bomb> bombs = new ArrayList<>();
 
 	public Space(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}
 
+	/*public static void main(String[] args) {
+
+	}*/
 	public void run() {
 		Canvas canvas = new Canvas(width, height);
 		KeyboardObserver keyboardObserver = new KeyboardObserver();
@@ -36,16 +38,16 @@ public class Space {
 				} else if (event.getKeyCode() == KeyEvent.VK_SPACE) {
 					ship.fire();
 				}
-
-				moveAllItems();
-				checkBombs();
-				checkRockets();
-				removeDead();
-				createUfo();
-				canvas.clear();
-				canvas.print();
-				Space.sleep(300);
 			}
+			moveAllItems();
+			checkBombs();
+			checkRockets();
+			removeDead();
+			createUfo();
+			canvas.clear();
+			draw(canvas);
+			canvas.print();
+			Space.sleep(300);
 		}
 		System.out.println("Game over!!!");
 	}
@@ -80,11 +82,6 @@ public class Space {
 		}
 	}
 
-	public static void main(String[] args) {
-		game = new Space(20, 20);
-		game.setShip(new SpaceShip(10, 18));
-		game.run();
-	}
 
 	public void moveAllItems() {
 		for (BaseObject object : getAllItems()) {
@@ -93,7 +90,7 @@ public class Space {
 	}
 
 	public List<BaseObject> getAllItems() {
-		ArrayList<BaseObject> list = new ArrayList<BaseObject>(ufos);
+		ArrayList<BaseObject> list = new ArrayList<>(ufos);
 		list.add(ship);
 		list.addAll(bombs);
 		list.addAll(rockets);
@@ -139,19 +136,19 @@ public class Space {
 	}
 
 	public void removeDead() {
-		for (BaseObject object : new ArrayList<BaseObject>(bombs)) {
+		for (BaseObject object : new ArrayList<>(bombs)) {
 			if (!object.isAlive()) {
 				bombs.remove(object);
 			}
 		}
 
-		for (BaseObject object : new ArrayList<BaseObject>(rockets)) {
+		for (BaseObject object : new ArrayList<>(rockets)) {
 			if (!object.isAlive()) {
 				rockets.remove(object);
 			}
 		}
 
-		for (BaseObject object : new ArrayList<BaseObject>(ufos)) {
+		for (BaseObject object : new ArrayList<>(ufos)) {
 			if (!object.isAlive()) {
 				ufos.remove(object);
 			}
@@ -170,13 +167,13 @@ public class Space {
 		return height;
 	}
 
-	public SpaceShip getShip() {
-		return ship;
-	}
-
-	public List<Ufo> getUfos() {
-		return ufos;
-	}
+//	public SpaceShip getShip() {
+//		return ship;
+//	}
+//
+//	public List<Ufo> getUfos() {
+//		return ufos;
+//	}
 
 	public List<Rocket> getRockets() {
 		return rockets;
