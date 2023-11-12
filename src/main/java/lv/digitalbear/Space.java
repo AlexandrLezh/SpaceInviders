@@ -6,26 +6,25 @@ import java.util.List;
 
 public class Space {
 
-	//public static Space game;
 	private final int width;
 	private final int height;
+	private static int delay;
 
 	private SpaceShip ship;
 	private final List<Ufo> ufos = new ArrayList<>();
 	private final List<Rocket> rockets = new ArrayList<>();
 	private final List<Bomb> bombs = new ArrayList<>();
 
-	public Space(int width, int height) {
+	public Space(int width, int height, int delay) {
 		this.width = width;
 		this.height = height;
+		this.delay = delay;
 	}
 
-	/*public static void main(String[] args) {
-
-	}*/
 	public void run() {
 		Canvas canvas = new Canvas(width, height);
 		KeyboardObserver keyboardObserver = new KeyboardObserver();
+		keyboardObserver.start();
 
 		while (ship.isAlive()) {
 			if (keyboardObserver.hasKeyEvents()) {
@@ -47,9 +46,16 @@ public class Space {
 			canvas.clear();
 			draw(canvas);
 			canvas.print();
-			Space.sleep(300);
+			Space.sleep();
 		}
 		System.out.println("Game over!!!");
+	}
+
+	public static void sleep() {
+		try {
+			Thread.sleep(delay);
+		} catch (InterruptedException ignored) {
+		}
 	}
 
 	public void draw(Canvas canvas) {
@@ -74,14 +80,6 @@ public class Space {
 			object.draw(canvas);
 		}
 	}
-
-	public static void sleep(int delay) {
-		try {
-			Thread.sleep(delay);
-		} catch (InterruptedException ignored) {
-		}
-	}
-
 
 	public void moveAllItems() {
 		for (BaseObject object : getAllItems()) {
@@ -167,13 +165,6 @@ public class Space {
 		return height;
 	}
 
-//	public SpaceShip getShip() {
-//		return ship;
-//	}
-//
-//	public List<Ufo> getUfos() {
-//		return ufos;
-//	}
 
 	public List<Rocket> getRockets() {
 		return rockets;
